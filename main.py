@@ -2,6 +2,7 @@ from src.preprocess import load_data, select_features, scale_data
 from src.clustering import run_kmeans, run_dbscan
 from src.visualize import plot_cluster
 from src.tuning import Elbow_Method,find_eps
+from src.analysis import analysis_clusters
 # load data
 df = load_data("data/Mall_Customers.csv")
 
@@ -17,12 +18,13 @@ find_eps(scaled_x)
 kmeans_labels, _ = run_kmeans(scaled_x)
 dbscan_labels, _ = run_dbscan(scaled_x)
 
+
 # add results to df
 df["kmeans_cluster"] = kmeans_labels
 df["dbscan_cluster"] = dbscan_labels
 
 print(df.head())
-
+analysis_clusters(df)
 # visulization 
 plot_cluster(df, "kmeans_cluster")
 plot_cluster(df, "dbscan_cluster")
